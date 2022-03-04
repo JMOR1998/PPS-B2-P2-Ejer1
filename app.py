@@ -6,6 +6,7 @@ locale.setlocale(locale.LC_TIME, '')
 
 @app.route("/")
 def index():
+    the_time = datetime.now().strftime("%A, %d %b %Y %H:%M")
     
     # Load current count
     f = open("count.txt", "r")
@@ -19,26 +20,8 @@ def index():
     f = open("count.txt", "w")
     f.write(str(count))
     f.close()
-
-    # Render HTML with count variable
-    return render_template("index.html", count=count)
+    # Render HTML with variable
+    return render_template("index.html", the_time=the_time, tema="dogs", count=count)
 
 if __name__ == "__main__":
     app.run()
-
-@app.route('/')
-def homepage():
-
-    the_time = datetime.now().strftime("%A, %d %b %Y %H:%M")
-
-    # Render HTML with variable
-    return render_template("index.html", the_time=the_time, tema="dogs" )
-
-    # return f"""
-    # <h1>Hello heroku</h1>
-    # <p>It is currently {the_time}.</p>
-    # <img src="http://loremflickr.com/600/400" />
-    # """
-
-if __name__ == '__main__':
-    app.run(debug=True, use_reloader=True) 
